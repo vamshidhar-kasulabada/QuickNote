@@ -55,48 +55,37 @@ class EditNoteFragment : Fragment() {
         if (note == null) {
             binding.addEditText.text = addEditTextValues[0]
             binding.btnDelete.visibility = View.GONE
-            handleSubmitButtonOfAddNote()
+            handleSubmitButton()
 
 
         } else {
             binding.addEditText.text = addEditTextValues[1]
-            handleSubmitButtonOfEditNote()
+            binding.etTitle.setText(note?.title)
+            binding.etDescription.setText(note?.description)
+            handleSubmitButton()
             handleDeleteButtonOfEditNote()
         }
 
     }
 
-    private fun handleSubmitButtonOfAddNote() {
+    private fun handleSubmitButton() {
 
         binding.btnSubmit.setOnClickListener {
             if (binding.etTitle.text.isEmpty()) {
                 Toast.makeText(requireContext(), "Title Cannot be Empty", Toast.LENGTH_SHORT)
                     .show()
             } else {
+                val id = note?.id
                 val txtTitle = binding.etTitle.text.toString()
                 val txtDescription = binding.etDescription.text.toString()
-                notesViewModel.saveNote(Note(title = txtTitle, description = txtDescription))
+                notesViewModel.saveNote(Note(id,txtTitle, txtDescription))
+                //Room onConflictStrategy is replace
                 findNavController().popBackStack()
 
             }
         }
     }
 
-    private fun handleSubmitButtonOfEditNote() {
-
-        binding.etTitle.setText(note?.title)
-        binding.etDescription.setText(note?.description)
-
-        binding.btnSubmit.setOnClickListener {
-            val id = note?.id
-            val etUpdatedTitle = binding.etTitle.text.toString()
-            val etUpdatedDescription = binding.etDescription.text.toString()
-            notesViewModel.saveNote(Note(id, etUpdatedTitle, etUpdatedDescription))
-            //Room onConflictStrategy is replace
-
-            findNavController().popBackStack()
-        }
-    }
 
     private fun handleDeleteButtonOfEditNote() {
         binding.btnDelete.setOnClickListener {
