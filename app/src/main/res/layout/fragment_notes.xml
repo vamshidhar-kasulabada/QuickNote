@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/rvBackground">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -27,6 +28,7 @@
         android:layout_marginBottom="32dp"
         android:clickable="true"
         android:src="@drawable/ic_add"
+        app:backgroundTint="@color/accentColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
